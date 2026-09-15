@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reino de Claudonia — MMO</title>
+  <style>
+    :root {
+      --bg: #050509;
+      --panel: #14121c;
+      --border: #3a3350;
+      --gold: #d8b76a;
+      --text: #eae6f2;
+      --muted: #9d97b3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 50% 20%, #1a1626 0%, var(--bg) 70%);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #auth-screen {
+      width: 380px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    }
+    #auth-screen h1 {
+      text-align: center;
+      color: var(--gold);
+      font-size: 22px;
+      letter-spacing: 1px;
+      margin-top: 0;
+    }
+    .tabs { display: flex; margin-bottom: 18px; border-bottom: 1px solid var(--border); }
+    .tab-btn {
+      flex: 1; background: none; border: none; color: var(--muted);
+      padding: 10px; cursor: pointer; font-size: 14px; border-bottom: 2px solid transparent;
+    }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    form { display: none; flex-direction: column; gap: 10px; }
+    form.active { display: flex; }
+
+    label { font-size: 12px; color: var(--muted); }
+    input, select {
+      background: #0d0c14; border: 1px solid var(--border); color: var(--text);
+      padding: 9px 10px; border-radius: 6px; font-size: 14px;
+    }
+    button.primary {
+      margin-top: 6px; background: linear-gradient(180deg, var(--gold), #a9863f);
+      border: none; color: #1a1204; font-weight: bold; padding: 11px; border-radius: 6px;
+      cursor: pointer; font-size: 14px;
+    }
+    button.primary:hover { filter: brightness(1.08); }
+
+    #class-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 4px 0;
+    }
+    .class-option {
+      border: 1px solid var(--border); border-radius: 6px; padding: 8px 4px;
+      text-align: center; font-size: 11px; cursor: pointer; color: var(--muted);
+    }
+    .class-option.selected { border-color: var(--gold); color: var(--gold); background: #241d33; }
+
+    #auth-error { color: #ff7a7a; font-size: 12px; min-height: 16px; }
+
+    #game-container { display: none; border: 2px solid var(--border); border-radius: 4px; }
+
+    #chat-overlay {
+      display: none; position: fixed; left: 12px; bottom: 12px; width: 320px;
+    }
+    #chat-log {
+      height: 110px; overflow-y: auto; background: rgba(5,5,9,0.75);
+      border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;
+      font-size: 12px; margin-bottom: 4px;
+    }
+    #chat-log div { margin-bottom: 2px; }
+    #chat-input {
+      width: 100%; background: rgba(5,5,9,0.85); border: 1px solid var(--border);
+      color: var(--text); padding: 7px 9px; border-radius: 6px; font-size: 12px;
+    }
+
+    #hint {
+      position: fixed; right: 12px; bottom: 12px; font-size: 11px; color: var(--muted);
+      max-width: 240px; text-align: right; display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="auth-screen">
+    <h1>⚔ Reino de Claudonia ⚔</h1>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="login">Entrar</button>
+      <button class="tab-btn" data-tab="register">Criar Conta</button>
+    </div>
+
+    <form id="login-form" class="active">
+      <label>Nome de usuário</label>
+      <input type="text" id="login-username" required />
+      <label>Senha</label>
+      <input type="password" id="login-password" required />
+      <button type="submit" class="primary">Entrar no Mundo</button>
+    </form>
+
+    <form id="register-form">
+      <label>Nome de usuário</label>
+      <input type="text" id="register-username" required />
+      <label>Senha (mín. 6 caracteres)</label>
+      <input type="password" id="register-password" required />
+      <label>Escolha sua classe</label>
+      <div id="class-grid"></div>
+      <button type="submit" class="primary">Criar Personagem</button>
+    </form>
+
+    <div id="auth-error"></div>
+  </div>
+
+  <div id="game-container"></div>
+
+  <div id="chat-overlay">
+    <div id="chat-log"></div>
+    <input id="chat-input" placeholder="Pressione Enter para conversar..." />
+  </div>
+
+  <div id="hint">Setas/WASD: mover · Clique num alvo: selecionar · 1: ataque básico · 2: habilidade</div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
