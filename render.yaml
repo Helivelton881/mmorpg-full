@@ -11,10 +11,12 @@ services:
         value: production
       - key: HOST
         value: 0.0.0.0
+      - key: DB_GATEWAY_URL
+        value: https://depdbddsbszhyeiuxhtd.supabase.co/functions/v1/game-db-gateway
+      - key: DB_GATEWAY_SECRET
+        sync: false
       - key: DB_SSL
         value: "true"
-      - key: DATABASE_URL
-        sync: false
 
   - type: static
     name: mmorpg-2d-v022-web
@@ -22,4 +24,4 @@ services:
     staticPublishPath: ./client/dist
     envVars:
       - key: VITE_SERVER_URL
-        sync: false
+        value: https://mmorpg-2d-v022-server.onrender.com
