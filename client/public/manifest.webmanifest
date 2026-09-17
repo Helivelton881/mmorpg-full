@@ -1,0 +1,11 @@
+{
+  "name": "MMORPG 2D",
+  "short_name": "MMORPG2D",
+  "description": "MMORPG 2D multiplayer online",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "lang": "pt-BR"
+}

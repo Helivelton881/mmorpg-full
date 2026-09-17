@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: mmorpg-2d-v022-server
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build:server
+    startCommand: npm run start:server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: DB_SSL
+        value: "true"
+      - key: DATABASE_URL
+        sync: false
+
+  - type: static
+    name: mmorpg-2d-v022-web
+    buildCommand: npm install && npm run build:client
+    staticPublishPath: ./client/dist
+    envVars:
+      - key: VITE_SERVER_URL
+        sync: false
